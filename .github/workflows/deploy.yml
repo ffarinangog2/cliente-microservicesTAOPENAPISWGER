@@ -25,6 +25,23 @@ jobs:
       - name: Compilar con Maven
         run: mvn clean package -DskipTests
 
+
+
+      # 🔍 DEBUG (AQUÍ, JUSTO AQUÍ)
+      - name: DEBUG
+        run: |
+          if [ -z "${{ secrets.DOCKER_USERNAME }}" ]; then
+            echo "USERNAME VACIO"
+          else
+            echo "USERNAME OK"
+          fi
+
+          if [ -z "${{ secrets.DOCKER_PASSWORD }}" ]; then
+            echo "PASSWORD VACIO"
+          else
+            echo "PASSWORD OK"
+          fi
+
       # 4️⃣ Login en Docker Hub (con secrets)
       - name: Login en Docker Hub
         uses: docker/login-action@v3
