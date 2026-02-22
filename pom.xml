@@ -133,6 +133,10 @@
 
                                 <jakarta>true</jakarta>
                                 <useSpringBoot3>true</useSpringBoot3>
+
+                                <!-- ESTO ES LO IMPORTANTE -->
+                                <interfaceOnly>true</interfaceOnly>
+                                <useSpringController>false</useSpringController>
                             </configOptions>
 
                             <generateApiTests>false</generateApiTests>
