@@ -25,13 +25,13 @@ jobs:
       - name: 4. Login en Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: 5. Build y Push de Imagen Docker
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/ms-clientes:latest .
-          docker push ${{ secrets.DOCKER_USERNAME }}/ms-clientes:latest
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/ms-clientes:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/ms-clientes:latest
 
       - name: 6. Despliegue en Azure vía SSH
         uses: appleboy/ssh-action@master
