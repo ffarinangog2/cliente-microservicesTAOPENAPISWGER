@@ -3,7 +3,7 @@ name: Deploy to AKS (Kubernetes)
 on:
   push:
     branches:
-      - master
+      - kubernetes
 
 jobs:
   deploy-aks:
