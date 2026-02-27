@@ -4,6 +4,8 @@ spring:
     url: jdbc:postgresql://postgres:5432/clientes_db
     username: postgres
     password: postgres
+    server:
+      port: 8081
 
   jpa:
     hibernate:
