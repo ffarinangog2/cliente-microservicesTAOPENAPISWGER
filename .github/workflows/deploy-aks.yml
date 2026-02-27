@@ -27,12 +27,12 @@ jobs:
           resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
           cluster-name: ${{ secrets.AZURE_CLUSTER_NAME }}
 
-      # 4️⃣ Desplegar en Kubernetes
+      # 4️⃣ Desplegar en Kubernetes (Deployment + Service)
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f k8s/microservicio-deployment.yaml
+          kubectl apply -f k8s/
 
-      # 5️⃣ Verificar estado de los pods (logs visibles en Actions)
+      # 5️⃣ Verificar estado de los pods
       - name: Check Pods Status
         run: |
           kubectl get pods
