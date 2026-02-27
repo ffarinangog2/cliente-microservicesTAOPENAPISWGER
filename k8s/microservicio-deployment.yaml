@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cliente-microservicio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cliente-microservicio
+  template:
+    metadata:
+      labels:
+        app: cliente-microservicio
+    spec:
+      containers:
+        - name: cliente-microservicio
+          image: acrclientes.azurecr.io/cliente-microservicio:latest
+          ports:
+            - containerPort: 8081
