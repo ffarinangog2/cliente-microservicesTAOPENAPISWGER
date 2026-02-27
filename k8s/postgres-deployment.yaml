@@ -18,6 +18,7 @@ spec:
           image: postgres:16
           ports:
             - containerPort: 5432
+
           env:
             - name: POSTGRES_DB
               value: clientes_db
@@ -25,9 +26,15 @@ spec:
               value: postgres
             - name: POSTGRES_PASSWORD
               value: postgres
+
+            # 🔴 ESTA ES LA CLAVE DEL PROBLEMA (OBLIGATORIO)
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+
           volumeMounts:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
+
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
