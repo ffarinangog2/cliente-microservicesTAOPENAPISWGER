@@ -1,0 +1,38 @@
+name: Deploy to AKS (Kubernetes)
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy-aks:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Descargar el código
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Login en Azure usando el Service Principal
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # 3️⃣ Conectarse al clúster AKS
+      - name: Set AKS context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          cluster-name: ${{ secrets.AZURE_CLUSTER_NAME }}
+
+      # 4️⃣ Desplegar en Kubernetes
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/microservicio-deployment.yaml
+
+      # 5️⃣ Verificar estado de los pods (logs visibles en Actions)
+      - name: Check Pods Status
+        run: |
+          kubectl get pods
