@@ -3,18 +3,18 @@ name: Deploy to AKS (Kubernetes)
 on:
   push:
     branches:
-      - kubernetes
+      - kubernetes   # SOLO esta rama
 
 jobs:
   deploy-aks:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Descargar el código
+      # 1️⃣ Clonar el repositorio
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Login en Azure usando el Service Principal
+      # 2️⃣ Login en Azure con Service Principal
       - name: Azure Login
         uses: azure/login@v1
         with:
@@ -27,12 +27,13 @@ jobs:
           resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
           cluster-name: ${{ secrets.AZURE_CLUSTER_NAME }}
 
-      # 4️⃣ Desplegar en Kubernetes (Deployment + Service)
-      - name: Deploy to Kubernetes
+      # 4️⃣ Desplegar TODO Kubernetes (BD + App)
+      - name: Deploy Kubernetes Manifests
         run: |
           kubectl apply -f k8s/
 
-      # 5️⃣ Verificar estado de los pods
-      - name: Check Pods Status
+      # 5️⃣ Verificación básica (solo informativo)
+      - name: Verify resources
         run: |
-          kubectl get pods
+          kubectl get pods -n clientes
+          kubectl get svc -n clientes
