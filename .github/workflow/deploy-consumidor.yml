@@ -1,0 +1,61 @@
+name: Deploy Consumidor to AKS
+
+on:
+  push:
+    branches:
+      - master   # usa la rama donde trabajas este microservicio
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # 1️⃣ Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Configurar Java
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      # 3️⃣ Compilar proyecto
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
+
+      # 4️⃣ Login en Azure
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # 5️⃣ Login en ACR
+      - name: ACR Login
+        run: az acr login --name acrclientes
+
+      # 6️⃣ Build imagen
+      - name: Build Docker image
+        run: |
+          docker build -t acrclientes.azurecr.io/cliente-consumidor:latest .
+
+      # 7️⃣ Push imagen a ACR
+      - name: Push Docker image
+        run: |
+          docker push acrclientes.azurecr.io/cliente-consumidor:latest
+
+      # 8️⃣ Conectar con AKS
+      - name: Set AKS context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: client-cluster_group
+          cluster-name: client-cluster
+
+      # 9️⃣ Deploy en Kubernetes
+      - name: Deploy to AKS
+        run: |
+          kubectl apply -f k8s/consumidor-deployment.yaml
+          kubectl apply -f k8s/consumidor-service.yaml

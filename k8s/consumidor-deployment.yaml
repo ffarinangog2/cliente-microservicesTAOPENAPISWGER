@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cliente-consumidor
+  namespace: clientes
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cliente-consumidor
+  template:
+    metadata:
+      labels:
+        app: cliente-consumidor
+    spec:
+      containers:
+        - name: cliente-consumidor
+          image: acrclientes.azurecr.io/cliente-consumidor:latest
+          ports:
+            - containerPort: 9095
