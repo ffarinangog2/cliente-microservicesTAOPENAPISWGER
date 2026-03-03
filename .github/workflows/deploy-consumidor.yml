@@ -3,7 +3,7 @@ name: Deploy Consumidor to AKS
 on:
   push:
     branches:
-      - consumidor   # usa la rama donde trabajas este microservicio
+      - consumidor-cliente   # usa la rama donde trabajas este microservicio
 
 jobs:
   build-and-deploy:
