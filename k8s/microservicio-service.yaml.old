@@ -12,6 +12,6 @@ spec:
       port: 80
       targetPort: 8080
 
-    - name: clientes
+    - name: consumidor
       port: 81
       targetPort: 9095
