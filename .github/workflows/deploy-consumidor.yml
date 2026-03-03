@@ -51,8 +51,8 @@ jobs:
       - name: Set AKS context
         uses: azure/aks-set-context@v3
         with:
-          resource-group: client-cluster_group
-          cluster-name: client-cluster
+          resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          cluster-name: ${{ secrets.AZURE_CLUSTER_NAME }}
 
       # 9️⃣ Deploy en Kubernetes
       - name: Deploy to AKS
