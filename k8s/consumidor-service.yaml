@@ -4,7 +4,7 @@ metadata:
   name: cliente-consumidor
   namespace: clientes
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: cliente-consumidor
   ports:
