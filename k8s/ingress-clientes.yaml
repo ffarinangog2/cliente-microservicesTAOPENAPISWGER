@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: cli-ing
-  namespace: microclientes
+  namespace: clientes
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
@@ -11,7 +11,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /clientes(/|$)(.*)
+          - path: /microclientes(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
               service:
