@@ -62,4 +62,9 @@ public class ConsumidorController {
                 .filter(c -> c.getEdad() > 30)
                 .toList();
     }
+
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        return "dashboard";
+    }
 }
