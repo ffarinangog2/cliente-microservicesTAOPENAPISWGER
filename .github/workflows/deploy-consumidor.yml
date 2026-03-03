@@ -61,7 +61,7 @@ jobs:
           cluster-name: ${{ secrets.AZURE_CLUSTER_NAME }}
 
       # 9️⃣ Deploy en Kubernetes
-      - name: Deploy to AKS
-        run: |
-          kubectl apply -f k8s/consumidor-deployment.yaml
-          kubectl apply -f k8s/consumidor-service.yaml
+      #- name: Deploy to AKS
+        #run: |
+         # kubectl apply -f k8s/consumidor-deployment.yaml
+         # kubectl apply -f k8s/consumidor-service.yaml
