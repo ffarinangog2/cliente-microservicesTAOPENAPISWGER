@@ -8,5 +8,10 @@ spec:
   selector:
     app: cliente-microservicio
   ports:
-    - port: 80
+    - name: clintes
+      port: 80
       targetPort: 8080
+
+    - name: clientes
+      port: 81
+      targetPort: 9095
