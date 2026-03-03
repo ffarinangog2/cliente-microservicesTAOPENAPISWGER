@@ -31,6 +31,7 @@ jobs:
       - name: Deploy Kubernetes Manifests
         run: |
           kubectl apply -f k8s/
+          kubectl rollout restart deployment cliente-microservicio -n clientes
 
       # 5️⃣ Verificación básica (solo informativo)
       - name: Verify resources
