@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: cliente-consumidor
-          image: acrclientes.azurecr.io/cliente-consumidor:latest
+          image: acrclientes.azurecr.io/cliente-consumidor:v2
           ports:
             - containerPort: 9095
