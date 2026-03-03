@@ -8,6 +8,6 @@ public class ClienteViewController {
 
     @GetMapping("/")
     public String home() {
-        return "index";
+        return "mostrando-pantalla";
     }
 }

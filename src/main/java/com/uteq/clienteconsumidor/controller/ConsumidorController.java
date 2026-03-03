@@ -63,8 +63,5 @@ public class ConsumidorController {
                 .toList();
     }
 
-    @GetMapping("/vista")
-    public String dashboard() {
-        return "mostrando-pantalla";
-    }
+
 }
