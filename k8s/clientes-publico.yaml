@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clientes-combinado
+  namespace: clientes
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clientes-combinado
+  template:
+    metadata:
+      labels:
+        app: clientes-combinado
+    spec:
+      containers:
+        - name: microservicio
+          image: acrclientes.azurecr.io/cliente-microservicio:latest
+          ports:
+            - containerPort: 8080
+
+        - name: consumidor
+          image: acrclientes.azurecr.io/cliente-consumidor:latest
+          ports:
+            - containerPort: 9095
