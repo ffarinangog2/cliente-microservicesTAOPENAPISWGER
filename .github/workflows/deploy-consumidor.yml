@@ -34,8 +34,14 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       # 5️⃣ Login en ACR
-      - name: ACR Login
-        run: az acr login --name acrclientes
+      - name: Login to ACR
+        run: |
+          az acr login --name acrclientes --expose-token --output tsv --query accessToken | \
+          docker login acrclientes.azurecr.io \
+            --username 00000000-0000-0000-0000-000000000000 \
+            --password-stdin
+
+
 
       # 6️⃣ Build imagen
       - name: Build Docker image
