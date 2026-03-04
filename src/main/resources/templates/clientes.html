@@ -263,7 +263,7 @@
                 <i class="fas fa-users"></i>
                 Gestión de Clientes
             </h1>
-            <a th:href="@{/clientes/nuevo}" class="btn-nuevo">
+            <a th:href="@{clientes/nuevo}" class="btn-nuevo">
                 <i class="fas fa-user-plus"></i>
                 Nuevo Cliente
             </a>
@@ -303,10 +303,10 @@
                     <td th:text="${cliente.ciudad}"></td>
                     <td th:text="${cliente.edad}"></td>
                     <td>
-                        <a th:href="@{'/clientes/editar/' + ${cliente.id}}" class="btn-action btn-editar">
+                        <a th:href="@{'clientes/editar/' + ${cliente.id}}" class="btn-action btn-editar">
                             <i class="fas fa-edit"></i> Editar
                         </a>
-                        <a th:href="@{'/clientes/eliminar/' + ${cliente.id}}" class="btn-action btn-eliminar">
+                        <a th:href="@{'clientes/eliminar/' + ${cliente.id}}" class="btn-action btn-eliminar">
                             <i class="fas fa-trash-alt"></i> Eliminar
                         </a>
                     </td>
