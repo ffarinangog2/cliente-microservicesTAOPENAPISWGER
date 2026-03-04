@@ -186,7 +186,7 @@
 
         <h1><i class="fas fa-user-plus"></i> Registro de Cliente</h1>
 
-        <form th:action="@{guardar}" th:object="${cliente}" method="post">
+        <form th:action="@{/clientes/guardar}" th:object="${cliente}" method="post">
             <input type="hidden" th:field="*{id}">
 
             <div class="mb-custom">
@@ -246,7 +246,7 @@
                 <button type="submit" class="btn btn-success">
                     <i class="fas fa-save"></i> Guardar Cliente
                 </button>
-                <a th:href="@{clientes/cancelar}" class="btn btn-secondary">
+                <a th:href="@{/clientes/cancelar}" class="btn btn-secondary">
                     <i class="fas fa-times"></i> Cancelar
                 </a>
             </div>

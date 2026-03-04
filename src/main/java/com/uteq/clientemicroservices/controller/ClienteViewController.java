@@ -34,7 +34,7 @@ public class ClienteViewController {
     @PostMapping("/guardar")
     public String guardarCliente(@ModelAttribute Cliente cliente) {
         clienteService.guardarCliente(cliente);
-        return "redirect:clientes";
+        return "redirect:/clientes";
     }
 
     // Editar cliente
@@ -50,6 +50,6 @@ public class ClienteViewController {
     @GetMapping("/eliminar/{id}")
     public String eliminarCliente(@PathVariable Long id) {
         clienteService.eliminarCliente(id);
-        return "redirect:clientes";
+        return "redirect:/clientes";
     }
 }
