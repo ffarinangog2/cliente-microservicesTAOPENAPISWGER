@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: cliente-microservicio
-          image: acrclientes.azurecr.io/cliente-microservicio:latest
+          image: acrclientes.azurecr.io/cliente-microservicio:v2
           ports:
             - containerPort: 8080

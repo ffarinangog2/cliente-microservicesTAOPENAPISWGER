@@ -1,40 +1,72 @@
-name: Deploy to AKS (Kubernetes)
+    name: Deploy to AKS (Kubernetes)
 
-on:
-  push:
+    on:
+    push:
     branches:
-      - kubernetes   # SOLO esta rama
+      - kubernetes
 
-jobs:
-  deploy-aks:
+    jobs:
+    deploy-aks:
     runs-on: ubuntu-latest
-
+      
+      ```
     steps:
-      # 1️⃣ Clonar el repositorio
+      # 1️⃣ Clonar repositorio
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Login en Azure con Service Principal
+      # 2️⃣ Configurar Java
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      # 3️⃣ Compilar proyecto
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
+
+      # 4️⃣ Login en Azure
       - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # 3️⃣ Conectarse al clúster AKS
+      # 5️⃣ Login en Azure Container Registry
+      - name: Login to ACR
+        run: |
+          az acr login --name acrclientes --expose-token --output tsv --query accessToken | \
+          docker login acrclientes.azurecr.io \
+            --username 00000000-0000-0000-0000-000000000000 \
+            --password-stdin
+
+      # 6️⃣ Build imagen Docker
+      - name: Build Docker image
+        run: |
+          docker build -t acrclientes.azurecr.io/cliente-microservicio:v2 .
+
+      # 7️⃣ Push imagen al registry
+      - name: Push Docker image
+        run: |
+          docker push acrclientes.azurecr.io/cliente-microservicio:v2
+
+      # 8️⃣ Conectarse al cluster AKS
       - name: Set AKS context
         uses: azure/aks-set-context@v3
         with:
           resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
           cluster-name: ${{ secrets.AZURE_CLUSTER_NAME }}
 
-      # 4️⃣ Desplegar TODO Kubernetes (BD + App)
+      # 9️⃣ Deploy Kubernetes
       - name: Deploy Kubernetes Manifests
         run: |
           kubectl apply -f k8s/
           kubectl rollout restart deployment cliente-microservicio -n clientes
 
-      # 5️⃣ Verificación básica (solo informativo)
+      # 🔟 Verificación
       - name: Verify resources
         run: |
           kubectl get pods -n clientes
           kubectl get svc -n clientes
+      
