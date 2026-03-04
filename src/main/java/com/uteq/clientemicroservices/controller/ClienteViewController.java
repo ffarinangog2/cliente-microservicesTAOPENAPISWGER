@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/clientes")
+@RequestMapping("/clientes") // antes era /vistas/clientes
 public class ClienteViewController {
 
     private final ClienteService clienteService;
@@ -20,21 +20,21 @@ public class ClienteViewController {
     @GetMapping
     public String listarClientes(Model model) {
         model.addAttribute("clientes", clienteService.listarClientes());
-        return "clientes";
+        return "clientes"; // clientes.html
     }
 
     // Formulario nuevo cliente
     @GetMapping("/nuevo")
     public String nuevoCliente(Model model) {
         model.addAttribute("cliente", new Cliente());
-        return "cliente_form";
+        return "cliente_form"; // cliente_form.html
     }
 
     // Guardar cliente
     @PostMapping("/guardar")
     public String guardarCliente(@ModelAttribute Cliente cliente) {
         clienteService.guardarCliente(cliente);
-        return "redirect:clientes";
+        return "redirect:/clientes";
     }
 
     // Editar cliente
@@ -50,6 +50,6 @@ public class ClienteViewController {
     @GetMapping("/eliminar/{id}")
     public String eliminarCliente(@PathVariable Long id) {
         clienteService.eliminarCliente(id);
-        return "redirect:clientes";
+        return "redirect:/clientes";
     }
 }
