@@ -1,15 +1,14 @@
-    name: Deploy to AKS (Kubernetes)
+name: Deploy to AKS (Kubernetes)
 
-    on:
-    push:
+on:
+  push:
     branches:
       - kubernetes
 
-    jobs:
-    deploy-aks:
+jobs:
+  deploy-aks:
     runs-on: ubuntu-latest
-      
-      ```
+
     steps:
       # 1️⃣ Clonar repositorio
       - name: Checkout repository
@@ -69,4 +68,3 @@
         run: |
           kubectl get pods -n clientes
           kubectl get svc -n clientes
-      
